@@ -32,7 +32,7 @@ jupyterhub:
       homeMountPath: /home/sage
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: 'set-by-chartpress'
+      tag: '0.0-20d2ed3'
       pullPolicy: Always
     memory:
       limit: 2G
