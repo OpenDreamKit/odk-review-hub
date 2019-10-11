@@ -26,13 +26,13 @@ jupyterhub:
       callbackUrl: "https://odk-review.minrk.net/hub/oauth_callback"
 
   singleuser:
-    # cmd: jupyter-labhub
+    cmd: jupyter-labhub
     events: true
     storage:
-      homeMountPath: /home/sage
+      homeMountPath: /home/sage/odk
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0-20d2ed3'
+      tag: '0.0-855afa3'
       pullPolicy: Always
     memory:
       limit: 2G
