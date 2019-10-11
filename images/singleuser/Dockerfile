@@ -58,4 +58,7 @@ ADD activate-conda.sh /etc/profile.d/activate-conda.sh
 # ADD sage-env.sh /etc/profile.d/00-sage-env.sh
 ADD entrypoint /usr/local/bin/entrypoint
 
+RUN mkdir $HOME/odk
+WORKDIR $HOME/odk
+
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
