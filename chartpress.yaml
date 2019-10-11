@@ -1,0 +1,7 @@
+charts:
+  - name: jupyterhub
+    imagePrefix: gcr.io/simula-odk/k8s-
+
+    images:
+      singleuser:
+        valuesPath: jupyterhub.singleuser.image

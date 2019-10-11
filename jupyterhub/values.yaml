@@ -1,0 +1,164 @@
+jupyterhub:
+  proxy:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
+    service:
+      type: ClusterIP
+  ingress:
+    enabled: true
+    annotations:
+      ingress.kubernetes.io/proxy-body-size: 64m
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - odk-review.minrk.net
+    tls:
+      - secretName: kubelego-tls-jupyterhub
+        hosts:
+          - odk-review.minrk.net
+  auth:
+    type: github
+    admin:
+      access: true
+      users:
+        - minrk
+    github:
+      callbackUrl: "https://odk-review.minrk.net/hub/oauth_callback"
+
+  singleuser:
+    cmd: jupyter-labhub
+    events: true
+    storage:
+      homeMountPath: /home/user
+    image:
+      name: gcr.io/simula-odk/k8s-singleuser
+      tag: 'set-by-chartpress'
+      pullPolicy: Always
+    memory:
+      limit: 2G
+      guarantee: 1G
+    cpu:
+      limit: 2
+      guarantee: 0.5
+    schedulerStrategy: pack
+    extraEnv:
+      CULL_CONNECTED: '1'
+      CULL_TIMEOUT: '1800'
+      CULL_KERNEL_TIMEOUT: '1800'
+      CULL_INTERVAL: '120'
+
+  prePuller:
+    continuous:
+      enabled: true
+
+  hub:
+    nodeSelector:
+      cloud.google.com/gke-nodepool: default-pool
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /hub/metrics
+    extraConfig:
+      slowSpawn: |
+        c.JupyterHub.tornado_settings.update({'slow_spawn_timeout': 1})
+      noAuthMetrics: |
+        c.JupyterHub.authenticate_prometheus = False
+  scheduling:
+    userScheduler:
+      enabled: true
+    podPriority:
+      enabled: true
+    userPlaceholder:
+      enabled: true
+      replicas: 2
+
+grafana:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: default-pool
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+      org_name: Main Org.
+      org_role: Viewer
+    auth.basic:
+      enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - grafana.odk-review.minrk.net
+    tls:
+      - hosts:
+          - grafana.odk-review.minrk.net
+        secretName: kubelego-tls-grafana
+  persistence:
+    size: 2Gi
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: prometheus
+          orgId: 1
+          type: prometheus
+          url: https://prometheus.odk-review.minrk.net
+          access: direct
+          isDefault: true
+          editable: false
+
+prometheus:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: default-pool
+  nodeExporter:
+    updateStrategy:
+      type: RollingUpdate
+  alertmanager:
+    enabled: false
+  pushgateway:
+    enabled: false
+  rbac:
+    create: true
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        kubernetes.io/tls-acme: "true"
+      hosts:
+        - prometheus.odk-review.minrk.net
+      tls:
+        - hosts:
+            - prometheus.odk-review.minrk.net
+          secretName: kubelego-tls-prometheus
+
+kube-lego:
+  config:
+    LEGO_EMAIL: benjaminrk@simula.no
+    LEGO_URL: https://acme-v01.api.letsencrypt.org/directory
+  rbac:
+    create: true
+
+nginx-ingress:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: default-pool
+  rbac:
+    create: true
+  statsExporter:
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+  controller:
+    replicaCount: 2
+    scope:
+      enabled: true
+    config:
+      # Allow POSTs of upto 64MB, for large notebook support.
+      proxy-body-size: 64m
+    stats:
+      enabled: true
+    service:
+      # Preserve client IPs
+      externalTrafficPolicy: Local

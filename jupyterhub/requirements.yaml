@@ -1,0 +1,16 @@
+dependencies:
+ - name: nginx-ingress
+   version: 1.19.0
+   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: prometheus
+   version: 9.1.0
+   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: grafana
+   version: 3.8.9
+   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: kube-lego
+   version: 0.4.2
+   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: jupyterhub
+   version: 0.9-5eb48bc
+   repository: https://jupyterhub.github.io/helm-chart
