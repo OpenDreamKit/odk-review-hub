@@ -9,11 +9,11 @@ jupyterhub:
     annotations:
       ingress.kubernetes.io/proxy-body-size: 64m
       kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+      cert-manager.io/issuer: "letsencrypt-staging"
     hosts:
       - odk-review.minrk.net
     tls:
-      - secretName: kubelego-tls-jupyterhub
+      - secretName: tls-jupyterhub
         hosts:
           - odk-review.minrk.net
   auth:
@@ -26,10 +26,10 @@ jupyterhub:
       callbackUrl: "https://odk-review.minrk.net/hub/oauth_callback"
 
   singleuser:
-    cmd: jupyter-labhub
+    # cmd: jupyter-labhub
     events: true
     storage:
-      homeMountPath: /home/user
+      homeMountPath: /home/sage
     image:
       name: gcr.io/simula-odk/k8s-singleuser
       tag: 'set-by-chartpress'
@@ -48,6 +48,8 @@ jupyterhub:
       CULL_INTERVAL: '120'
 
   prePuller:
+    hook:
+      enabled: false
     continuous:
       enabled: true
 
@@ -85,13 +87,13 @@ grafana:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: nginx
-      kubernetes.io/tls-acme: "true"
+      cert-manager.io/issuer: "letsencrypt-staging"
     hosts:
       - grafana.odk-review.minrk.net
     tls:
       - hosts:
           - grafana.odk-review.minrk.net
-        secretName: kubelego-tls-grafana
+        secretName: tls-grafana
   persistence:
     size: 2Gi
     enabled: true
@@ -126,20 +128,16 @@ prometheus:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: nginx
-        kubernetes.io/tls-acme: "true"
+        cert-manager.io/issuer: "letsencrypt-staging"
       hosts:
         - prometheus.odk-review.minrk.net
       tls:
         - hosts:
             - prometheus.odk-review.minrk.net
-          secretName: kubelego-tls-prometheus
+          secretName: tls-prometheus
 
-kube-lego:
-  config:
-    LEGO_EMAIL: benjaminrk@simula.no
-    LEGO_URL: https://acme-v01.api.letsencrypt.org/directory
-  rbac:
-    create: true
+acme:
+  email: benjaminrk@simula.no
 
 nginx-ingress:
   nodeSelector:
@@ -162,3 +160,4 @@ nginx-ingress:
     service:
       # Preserve client IPs
       externalTrafficPolicy: Local
+      loadBalancerIP: 34.77.130.182

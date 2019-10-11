@@ -16,6 +16,9 @@ push:
 
 upgrade:
 	helm dep up ./jupyterhub
+	make upgrade-quick
+
+upgrade-quick:
 	helm upgrade --install hub --kube-context=$(KUBE_CTX) ./jupyterhub -f secrets.yaml --namespace=hub
 
 run:

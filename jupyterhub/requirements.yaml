@@ -8,9 +8,9 @@ dependencies:
  - name: grafana
    version: 3.8.9
    repository: https://kubernetes-charts.storage.googleapis.com
- - name: kube-lego
-   version: 0.4.2
-   repository: https://kubernetes-charts.storage.googleapis.com
+ - name: cert-manager
+   version: 0.11.0
+   repository: https://charts.jetstack.io
  - name: jupyterhub
    version: 0.9-5eb48bc
    repository: https://jupyterhub.github.io/helm-chart
