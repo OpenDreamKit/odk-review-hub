@@ -40,13 +40,20 @@ USER $USER
 
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -n notebook -f /tmp/environment.yml
+RUN conda run -n notebook jupyter lab build
 
 RUN rm -rvf $HOME/sage/local/share/jupyter/kernels/python3
 RUN mkdir -p $HOME/.local/share && \
     ln -s $HOME/sage/local/share/jupyter $HOME/.local/share/jupyter
 
+ENV SAGE_ROOT=$HOME/sage
+
+# patch sage kernels to invoke sage to launch
+ADD patch-kernels.py /tmp/patch-kernels.py
+RUN python3 /tmp/patch-kernels.py
+
 ADD activate-conda.sh /etc/profile.d/activate-conda.sh
-ADD sage-env.sh /etc/profile.d/00-sage-env.sh
+# ADD sage-env.sh /etc/profile.d/00-sage-env.sh
 ADD entrypoint /usr/local/bin/entrypoint
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
