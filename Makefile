@@ -12,18 +12,11 @@ image:
 	chartpress
 
 push:
-	docker push $(IMAGE)
+	chartpress --push
 
 upgrade:
 	helm dep up ./jupyterhub
-	helm upgrade --install hub --kube-context=$(KUBE_CTX) ./jupyterhub -f config.yaml -f secrets.yaml --namespace=default
-
-conda:
-	docker build -t conda-pkgs conda-recipes
-
-conda/%: conda
-	- cd conda-recipes
-	docker run --rm -it -v $(PWD)/conda-bld:/opt/conda/conda-bld -v $(PWD)/conda-recipes:/conda-recipes conda-pkgs conda build /conda-recipes/$*
+	helm upgrade --install hub --kube-context=$(KUBE_CTX) ./jupyterhub -f secrets.yaml --namespace=hub
 
 run:
 	docker run -it --rm -p9999:8888 $(IMAGE) jupyter notebook --ip=0.0.0.0
