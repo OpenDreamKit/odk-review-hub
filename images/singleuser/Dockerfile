@@ -39,8 +39,10 @@ RUN apt-get update && apt-get -yq dist-upgrade \
 USER $USER
 
 ADD environment.yml /tmp/environment.yml
-RUN conda env create -n notebook -f /tmp/environment.yml
-RUN conda run -n notebook jupyter lab build
+RUN conda env create -n notebook -f /tmp/environment.yml \
+ && conda run -n notebook jupyter lab build \
+ && conda run -n notebook jupyter lab clean \
+ && conda clean -pity
 
 RUN rm -rvf $HOME/sage/local/share/jupyter/kernels/python3
 RUN mkdir -p $HOME/.local/share && \
