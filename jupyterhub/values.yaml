@@ -32,7 +32,7 @@ jupyterhub:
       homeMountPath: /home/sage/odk
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0-6140998'
+      tag: '0.0-e83b2cc'
       pullPolicy: Always
     memory:
       limit: 2G
