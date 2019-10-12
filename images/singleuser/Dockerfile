@@ -49,8 +49,10 @@ USER $USER
 
 ENV PATH=$CONDA_DIR/envs/notebook/bin:$PATH
 
+# strip qt, pyqt because they are unused and huge
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -n notebook -f /tmp/environment.yml \
+ && conda remove -n notebook --force --yes qt pyqt \
  && conda clean -pity \
  && jupyter lab clean
 
