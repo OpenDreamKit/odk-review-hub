@@ -36,19 +36,28 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     rm -rf $HOME/.conda && \
     chown -R $USER $CONDA_DIR
 
+ENV HOME=/home/user
+RUN mkdir $HOME \
+ && chown $USER $HOME \
+ && usermod -d $HOME $USER
+
+WORKDIR $HOME
+
 USER $USER
 
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -n notebook -f /tmp/environment.yml \
- && conda run -n notebook jupyter lab build \
- && conda run -n notebook jupyter lab clean \
- && conda clean -pity
+ && conda clean -pity \
+ && conda run -n notebook jupyter lab clean
 
-RUN rm -rvf $HOME/sage/local/share/jupyter/kernels/python3
+RUN conda run -n notebook jupyter lab build \
+ && conda run -n notebook jupyter lab clean
+
+ENV SAGE_ROOT=/home/sage/sage
+
+RUN rm -rvf $SAGE_ROOT/local/share/jupyter/kernels/python3
 RUN mkdir -p $HOME/.local/share && \
-    ln -s $HOME/sage/local/share/jupyter $HOME/.local/share/jupyter
-
-ENV SAGE_ROOT=$HOME/sage
+    ln -s $SAGE_ROOT/local/share/jupyter $HOME/.local/share/jupyter
 
 # patch sage kernels to invoke sage to launch
 ADD patch-kernels.py /tmp/patch-kernels.py
@@ -57,8 +66,5 @@ RUN python3 /tmp/patch-kernels.py
 ADD activate-conda.sh /etc/profile.d/activate-conda.sh
 # ADD sage-env.sh /etc/profile.d/00-sage-env.sh
 ADD entrypoint /usr/local/bin/entrypoint
-
-RUN mkdir $HOME/odk
-WORKDIR $HOME/odk
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
