@@ -32,7 +32,7 @@ jupyterhub:
       homeMountPath: /home/sage/odk
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0-e83b2cc'
+      tag: '0.0-b7dd29d'
       pullPolicy: Always
     memory:
       limit: 2G
@@ -60,8 +60,6 @@ jupyterhub:
       prometheus.io/scrape: "true"
       prometheus.io/path: /hub/metrics
     extraConfig:
-      nbdir: |
-        c.Spawner.notebook_dir = "~/odk"
       slowSpawn: |
         c.JupyterHub.tornado_settings.update({'slow_spawn_timeout': 1})
       noAuthMetrics: |
