@@ -11,12 +11,13 @@ ENV MINICONDA_VERSION=4.7.10 \
 USER root
 RUN apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
-    wget \
     bzip2 \
     ca-certificates \
-    locales \
     fonts-liberation \
+    git \
+    locales \
     run-one \
+    wget \
  && rm -rf /var/lib/apt/lists/*
 
  RUN cd /tmp && \
