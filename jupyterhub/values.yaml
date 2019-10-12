@@ -56,7 +56,14 @@ jupyterhub:
       CULL_TIMEOUT: '1800'
       CULL_KERNEL_TIMEOUT: '1800'
       CULL_INTERVAL: '120'
-
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+            - gitpuller
+            - https://github.com/opendreamkit/gap-demos
+            - master
+            - gap-demos
   prePuller:
     hook:
       enabled: false
