@@ -6,7 +6,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV MINICONDA_VERSION=4.7.10 \
-    CONDA_VERSION=4.7.10
+    CONDA_VERSION=4.7.12
 
 USER root
 RUN apt-get update && apt-get -yq dist-upgrade \
