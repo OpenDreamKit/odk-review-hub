@@ -12,10 +12,12 @@ jupyterhub:
       cert-manager.io/issuer: "letsencrypt-prod"
     hosts:
       - odk-review.minrk.net
+      - review-vre.opendreamkit.org
     tls:
       - secretName: tls-jupyterhub
         hosts:
           - odk-review.minrk.net
+          - review-vre.opendreamkit.org
   auth:
     type: github
     admin:
@@ -23,17 +25,25 @@ jupyterhub:
       users:
         - minrk
     github:
-      callbackUrl: "https://odk-review.minrk.net/hub/oauth_callback"
+      callbackUrl: "https://review-vre.opendreamkit.org/hub/oauth_callback"
 
   singleuser:
     cmd: jupyter-labhub
     events: true
     storage:
-      homeMountPath: /home/sage/odk
+      homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
       tag: '0.0-7ae4bb7'
       pullPolicy: Always
+    lifecycle_hooks:
+      postStart:
+        exec:
+          command:
+            - gitpuller
+            - https://opendreamkit/gap-demos
+            - master
+            - gap-demos
     memory:
       limit: 2G
       guarantee: 1G
@@ -90,9 +100,11 @@ grafana:
       cert-manager.io/issuer: "letsencrypt-prod"
     hosts:
       - grafana.odk-review.minrk.net
+      - grafana.review-vre.opendreamkit.org
     tls:
       - hosts:
           - grafana.odk-review.minrk.net
+          - grafana.review-vre.opendreamkit.org
         secretName: tls-grafana
   persistence:
     size: 2Gi
@@ -106,7 +118,7 @@ grafana:
         - name: prometheus
           orgId: 1
           type: prometheus
-          url: https://prometheus.odk-review.minrk.net
+          url: https://prometheus.review-vre.opendreamkit.org
           access: direct
           isDefault: true
           editable: false
@@ -131,9 +143,11 @@ prometheus:
         cert-manager.io/issuer: "letsencrypt-prod"
       hosts:
         - prometheus.odk-review.minrk.net
+        - prometheus.review-vre.opendreamkit.org
       tls:
         - hosts:
             - prometheus.odk-review.minrk.net
+            - prometheus.review-vre.opendreamkit.org
           secretName: tls-prometheus
 
 acme:
