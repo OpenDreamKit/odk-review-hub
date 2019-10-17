@@ -59,6 +59,8 @@ RUN conda env create -n notebook -f /tmp/environment.yml \
 RUN conda run -n notebook jupyter lab build \
  && conda run -n notebook jupyter lab clean
 
+RUN python3 -m pip install nbgitpuller
+
 ENV SAGE_ROOT=/home/sage/sage
 ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
 
