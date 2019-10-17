@@ -54,18 +54,21 @@ RUN conda run -n notebook jupyter lab build \
  && conda run -n notebook jupyter lab clean
 
 ENV SAGE_ROOT=/home/sage/sage
+ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
 
-RUN rm -rvf $SAGE_ROOT/local/share/jupyter/kernels/python3
-RUN mkdir -p $HOME/.local/share && \
-    ln -s $SAGE_ROOT/local/share/jupyter $HOME/.local/share/jupyter
+# remove duplicate sage Python kernel
+RUN rm -rvf $JUPYTER_DATA_DIR/kernels/python3
 
-RUN ln -s $HOME/.local/share/jupyter/kernels/gap $HOME/.local/share/jupyter/kernels/gap-4
+# rename gap kernel to match gap's own docker image (with version)
+RUN mv $JUPYTER_DATA_DIR/kernels/gap $JUPYTER_DATA_DIR/kernels/gap-4
 
 # patch sage kernels to invoke sage to launch
 ADD patch-kernels.py /tmp/patch-kernels.py
 RUN python3 /tmp/patch-kernels.py
 
+# make sure conda is fully activated at launch
 ADD activate-conda.sh /etc/profile.d/activate-conda.sh
+# make sure sage is activated at launch (disabled, that's done at kernel launch)
 # ADD sage-env.sh /etc/profile.d/00-sage-env.sh
 ADD entrypoint /usr/local/bin/entrypoint
 
