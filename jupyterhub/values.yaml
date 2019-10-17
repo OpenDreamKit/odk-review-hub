@@ -34,14 +34,14 @@ jupyterhub:
       homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0-3bae186'
+      tag: '0.0-07ed486'
       pullPolicy: Always
     lifecycleHooks:
       postStart:
         exec:
           command:
             - gitpuller
-            - https://opendreamkit/gap-demos
+            - https://github.com/opendreamkit/gap-demos
             - master
             - gap-demos
     memory:
