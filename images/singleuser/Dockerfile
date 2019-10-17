@@ -59,6 +59,8 @@ RUN rm -rvf $SAGE_ROOT/local/share/jupyter/kernels/python3
 RUN mkdir -p $HOME/.local/share && \
     ln -s $SAGE_ROOT/local/share/jupyter $HOME/.local/share/jupyter
 
+RUN ln -s $HOME/.local/share/jupyter/kernels/gap $HOME/.local/share/jupyter/kernels/gap-4
+
 # patch sage kernels to invoke sage to launch
 ADD patch-kernels.py /tmp/patch-kernels.py
 RUN python3 /tmp/patch-kernels.py
