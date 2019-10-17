@@ -20,6 +20,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     wget \
     bzip2 \
     ca-certificates \
+    git \
     locales \
     fonts-liberation \
     run-one \
@@ -51,15 +52,15 @@ WORKDIR $HOME
 
 USER $USER
 
+ENV PATH=$CONDA_DIR/envs/notebook/bin:$PATH
+
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -n notebook -f /tmp/environment.yml \
  && conda clean -pity \
- && conda run -n notebook jupyter lab clean
+ && jupyter lab clean
 
-ENV PATH=$CONDA_DIR/envs/notebook/bin:$PATH
-
-RUN conda run -n notebook jupyter lab build \
- && conda run -n notebook jupyter lab clean
+RUN jupyter lab build \
+ && jupyter lab clean
 
 RUN python3 -m pip install nbgitpuller
 
