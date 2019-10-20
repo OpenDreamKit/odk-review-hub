@@ -49,11 +49,11 @@ jupyterhub:
         description: "The default environment, with SageMath and JupyterLab"
         default: true
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singleuser:0.0.1_032-3339a62
+          image: gcr.io/simula-odk/k8s-singleuser:0.0.1_035-a9b544e
       - display_name: "GAP"
         description: "GAP demo image"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1_034-1076bd3
+          image: gcr.io/simula-odk/k8s-gap:0.0.1_035-a9b544e
 
 
     memory:
