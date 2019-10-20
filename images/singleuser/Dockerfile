@@ -1,5 +1,11 @@
 FROM registry.gitlab.com/sagemath/sage/sagemath:9.0.beta0-py3
 ENV USER=sage
+
+RUN sage -pip install pypersist
+RUN sage -pip install git+https://github.com/nthiery/sage-gap-semantic-interface.git
+RUN sage -pip install git+https://github.com/sagemath/sage-explorer.git
+RUN sage -pip install git+https://github.com/sagemath/sage-combinat-widgets.git
+
 # Configure environment
 ENV CONDA_DIR=/opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
