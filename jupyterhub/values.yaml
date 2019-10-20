@@ -53,7 +53,7 @@ jupyterhub:
       - display_name: "GAP"
         description: "GAP demo image"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1_035-a9b544e
+          image: gcr.io/simula-odk/k8s-gap:0.0.1_037-82d6773
 
 
     memory:
