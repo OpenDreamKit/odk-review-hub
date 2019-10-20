@@ -5,3 +5,4 @@ dependencies:
   - notebook=6
   - nbdime
   - oommfc
+  - rise
