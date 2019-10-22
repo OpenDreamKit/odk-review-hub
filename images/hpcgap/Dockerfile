@@ -25,6 +25,8 @@ RUN git clone --depth 1 https://github.com/gap-system/gap gap \
 
 ENV PATH=$GAP_DIR/bin:$PATH
 
+RUN pip install --no-cache nbgitpuller
+
 USER root
 ENV HOME=/home/user
 RUN mkdir $HOME \
