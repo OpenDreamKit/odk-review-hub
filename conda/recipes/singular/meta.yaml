@@ -7,7 +7,7 @@ source:
   git_rev: f03a589
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -27,6 +27,15 @@ requirements:
     - flint2
     - gmp
     - mpfr
+
+tests:
+  requirements:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - python
+    - pip
+  commands:
+    - pip install -vv pysingular
 
 extra:
   license: GPL, LGPL
