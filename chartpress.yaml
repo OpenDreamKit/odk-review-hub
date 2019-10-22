@@ -12,3 +12,7 @@ charts:
         valuesPath:
           - jupyterhub.singleuser.profileList.4.kubespawner_override.image
           - jupyterhub.singleuser.profileList.5.kubespawner_override.image
+      hpcgap:
+        valuesPath:
+          - jupyterhub.singleuser.profileList.6.kubespawner_override.image
+          - jupyterhub.singleuser.profileList.7.kubespawner_override.image
