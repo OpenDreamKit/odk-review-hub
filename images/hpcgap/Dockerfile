@@ -6,6 +6,11 @@ RUN conda install -yq \
 
 USER root
 RUN chown $NB_USER /opt
+RUN apt-get update \
+ && apt-get -y install --no-install-recommends \
+    libzmq5-dev \
+ && rm -rf /var/lib/apt/lists/*
+
 USER $NB_USER
 WORKDIR /opt
 
@@ -18,15 +23,23 @@ RUN git clone --depth 1 https://github.com/gap-system/gap gap \
  && make -j4 \
  && make bootstrap-pkg-full \
  && cd pkg \
- && ../bin/BuildPackages.sh \
- ;  cd ZeroMQ* \
- && ./configure --with-zmq=$CONDA_DIR \
- && make
+ && ../bin/BuildPackages.sh
 
-ENV PATH=$GAP_DIR/bin:$PATH
+# install the gap kernel
+ENV PATH=$GAPROOT/bin:$PATH
+ENV JUPYTER_GAP_EXECUTABLE ${GAPROOT}/bin/gap.sh
 
+RUN jupyter kernelspec install \
+    --sys-prefix \
+    --name gap-4 \
+    $GAPROOT/pkg/JupyterKernel*/etc/jupyter/ \
+ && ln -s $GAPROOT/pkg/JupyterKernel*/bin/jupyter-kernel-gap $CONDA_DIR/bin/jupyter-kernel-gap
+
+
+# install nbgitpuller
 RUN pip install --no-cache nbgitpuller
 
+# setup the home dir
 USER root
 ENV HOME=/home/user
 RUN mkdir $HOME \
