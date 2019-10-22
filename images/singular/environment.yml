@@ -1,7 +1,7 @@
 channels:
-  - minrk/labels/odk
+  - minrk/label/odk
   - conda-forge
 dependencies:
-  - singular=*=0
-  - flint2=*=0
+  - flint2=*=*_0
+  - singular=*=*_1
   - nbgitpuller
