@@ -51,7 +51,11 @@ jupyterhub:
         kubespawner_override:
           image: gcr.io/simula-odk/k8s-singleuser:0.0.1_035-a9b544e
       - display_name: "GAP"
-        description: "GAP demo image"
+        description: "GAP demo environment"
+        kubespawner_override:
+          image: gcr.io/simula-odk/k8s-gap:0.0.1_037-82d6773
+      - display_name: "Singular Parallel"
+        description: "Singular Parallel demo environment"
         kubespawner_override:
           image: gcr.io/simula-odk/k8s-gap:0.0.1_037-82d6773
 
