@@ -34,7 +34,7 @@ jupyterhub:
       homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0-3339a62'
+      tag: '0.0.1_041-8f76b65'
       pullPolicy: Always
     lifecycleHooks:
       postStart:
@@ -44,21 +44,45 @@ jupyterhub:
             - https://github.com/opendreamkit/gap-demos
             - master
             - gap-demos
+    extraNodeAffinity:
+      required:
+        - matchExpressions:
+          - key: jupyterhub-node
+            operator: NotIn
+            values:
+              - hpc
     profileList:
       - display_name: "Default"
-        description: "The default environment, with SageMath and JupyterLab"
+        description: "The default environment, with SageMath and JupyterLab, light\
+          \ resources"
         default: true
+      - display_name: "4 CPUs"
+        description: "The default SageMath environment, but with 4 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singleuser:0.0.1_035-a9b544e
+          cpu_guarantee: 4
+          cpu_limit: 4
       - display_name: "GAP"
         description: "GAP demo environment"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1_037-82d6773
-      - display_name: "Singular Parallel"
-        description: "Singular Parallel demo environment"
+          image: gcr.io/simula-odk/k8s-gap:0.0.1_040-00013e7
+      - display_name: "Singular Parallel (lite)"
+        description: "Singular Parallel demo environment, with only 4 cpus"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1_037-82d6773
-
+          image: gcr.io/simula-odk/k8s-singular:0.0.1_042-9a792f1
+          cpu_guarantee: 4
+          cpu_limit: 4
+      - display_name: "Singular Parallel"
+        description: "Singular Parallel demo environment, with 32 CPUs available"
+        kubespawner_override:
+          image: gcr.io/simula-odk/k8s-singular:0.0.1_042-9a792f1
+          cpu_guarantee: 8
+          cpu_limit: 32
+          node_affinity_required:
+            - matchExpressions:
+              - key: jupyterhub-node
+                operator: In
+                values:
+                  - hpc
 
     memory:
       limit: 2G
