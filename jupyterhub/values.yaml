@@ -215,3 +215,6 @@ nginx-ingress:
       # Preserve client IPs
       externalTrafficPolicy: Local
       loadBalancerIP: 34.77.130.182
+      # preserve healthcheck port
+      # this shouldn't be needed, but it's erroring on 0
+      healthCheckNodePort: 30278
