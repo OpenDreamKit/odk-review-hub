@@ -61,6 +61,17 @@ jupyterhub:
         kubespawner_override:
           cpu_guarantee: 4
           cpu_limit: 4
+      - display_name: "Big"
+        description: "The default SageMath environment, but with 32 CPUs available"
+        kubespawner_override:
+          cpu_guarantee: 8
+          cpu_limit: 16
+          node_affinity_required:
+            - matchExpressions:
+                - key: jupyterhub-node
+                  operator: In
+                  values:
+                    - hpc
       - display_name: "GAP"
         description: "GAP demo environment"
         kubespawner_override:
