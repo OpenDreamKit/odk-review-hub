@@ -46,12 +46,14 @@ jupyterhub:
             - master
             - gap-demos
     extraNodeAffinity:
-      required:
-        - matchExpressions:
-            - key: jupyterhub-node
-              operator: NotIn
-              values:
-                - hpc
+      preferred:
+        - weight: 100
+          preference:
+            matchExpressions:
+              - key: jupyterhub-node
+                operator: NotIn
+                values:
+                  - hpc
     profileList:
       - display_name: "Default"
         description: "The default environment, with SageMath and JupyterLab, light\
