@@ -64,8 +64,8 @@ RUN python3 -m pip install nbgitpuller
 
 RUN sage -pip install pypersist
 RUN sage -pip install git+https://github.com/nthiery/sage-gap-semantic-interface.git
-RUN sage -pip install git+https://github.com/sagemath/sage-explorer.git
 RUN sage -pip install git+https://github.com/sagemath/sage-combinat-widgets.git
+RUN sage -pip install git+https://github.com/sagemath/sage-explorer.git
 
 ENV SAGE_ROOT=/home/sage/sage
 ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
