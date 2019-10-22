@@ -36,6 +36,7 @@ jupyterhub:
       name: gcr.io/simula-odk/k8s-singleuser
       tag: '0.0.1-053.d48c97b'
       pullPolicy: Always
+    startTimeout: 600
     lifecycleHooks:
       postStart:
         exec:
@@ -99,13 +100,13 @@ jupyterhub:
         description: "HPC GAP Parallel demo environment, with only 4 cpu cores for\
           \ testing"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-053.d48c97b
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-055.e49e7af
           cpu_guarantee: 4
           cpu_limit: 4
       - display_name: "HPC GAP Parallel"
         description: "HPC GAP Parallel demo environment, with 32 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-053.d48c97b
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-055.e49e7af
           cpu_guarantee: 8
           cpu_limit: 32
           node_affinity_required:
