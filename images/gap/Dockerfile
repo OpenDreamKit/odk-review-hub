@@ -4,3 +4,12 @@ RUN sudo python3 -mpip install --no-cache \
     jupyterhub==1.0.* \
     jupyterlab==1.1.* \
     nbgitpuller
+
+ENV HOME=/home/user \
+    USER=gap
+
+RUN sudo mkdir $HOME \
+ && sudo chown $USER $HOME \
+ && sudo usermod -d $HOME $USER
+
+WORKDIR $HOME

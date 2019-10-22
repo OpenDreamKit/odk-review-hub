@@ -7,3 +7,14 @@ RUN conda env update -n root --file /tmp/environment.yml \
  && jupyter lab clean
 
 RUN pip install -v --no-cache pysingular jupyter_kernel_singular
+
+USER root
+
+ENV HOME=/home/user
+RUN mkdir $HOME \
+ && chown $NB_USER $HOME \
+ && usermod -d $HOME $NB_USER
+
+USER $NB_USER
+
+WORKDIR $HOME
