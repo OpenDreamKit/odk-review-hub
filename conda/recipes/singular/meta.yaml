@@ -1,0 +1,34 @@
+package:
+  name: singular
+  version: 4.1.2
+
+source:
+  git_url: https://github.com/Singular/Sources
+  git_rev: f03a589
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - autoconf
+    - automake
+    - libtool
+    - m4
+    - make
+  host:
+    - flint2  # use our build
+    - gmp
+    - mpfr
+    - readline
+  run:
+    - flint2
+    - gmp
+    - mpfr
+
+extra:
+  license: GPL, LGPL
+  license_file: COPYING
+

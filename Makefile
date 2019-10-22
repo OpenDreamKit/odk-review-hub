@@ -31,3 +31,13 @@ pull:
 
 clean-jobs:
 	kubectl --context=$(KUBE_CTX) delete jobs $(shell kubectl get jobs -a | sed '1d' | awk '{print $$1}')
+
+conda-build:
+	docker build -t odk-conda-build conda
+
+conda: conda-build
+	mkdir -p conda-pkgs
+	docker run --rm -it -v $(shell pwd)/conda-pkgs:/io/pkgs odk-conda-build cp -nprv /opt/conda/conda-bld/linux-64/ /io/pkgs/
+
+conda-upload: conda
+	anaconda upload --skip-existing --label odk conda-pkgs/linux-64/*.tar.bz2

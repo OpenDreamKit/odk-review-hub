@@ -1,0 +1,27 @@
+package:
+  name: flint2
+  version: 13.5.2
+
+source:
+  git_url: https://github.com/wbhart/flint2
+  git_rev: c585238
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+  host:
+    - gmp
+    - mpfr
+  run:
+    - gmp
+    - mpfr
+
+extra:
+  description: flint2 package for OpenDreamKit review VRE
+  license: LGPL 2.1
+  license_file: LICENSE
+
