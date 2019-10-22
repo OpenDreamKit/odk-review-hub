@@ -34,7 +34,7 @@ jupyterhub:
       homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0.1-045.a4e2744'
+      tag: '0.0.1-050.3943576'
       pullPolicy: Always
     lifecycleHooks:
       postStart:
@@ -75,17 +75,17 @@ jupyterhub:
       - display_name: "GAP"
         description: "GAP demo environment"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1-045.a4e2744
+          image: gcr.io/simula-odk/k8s-gap:0.0.1-050.3943576
       - display_name: "Singular Parallel (lite)"
         description: "Singular Parallel demo environment, with only 4 cpus"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singular:0.0.1-045.e9f66c7
+          image: gcr.io/simula-odk/k8s-singular:0.0.1-050.3943576
           cpu_guarantee: 4
           cpu_limit: 4
       - display_name: "Singular Parallel"
         description: "Singular Parallel demo environment, with 32 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singular:0.0.1-045.e9f66c7
+          image: gcr.io/simula-odk/k8s-singular:0.0.1-050.3943576
           cpu_guarantee: 8
           cpu_limit: 32
           node_affinity_required:
