@@ -69,6 +69,7 @@ jupyterhub:
         kubespawner_override:
           cpu_guarantee: 8
           cpu_limit: 16
+          memory_limit: 8G
           node_affinity_required:
             - matchExpressions:
                 - key: jupyterhub-node
@@ -93,6 +94,7 @@ jupyterhub:
           image: gcr.io/simula-odk/k8s-singular:0.0.1-053.d48c97b
           cpu_guarantee: 8
           cpu_limit: 32
+          memory_limit: 16G
           node_affinity_required:
             - matchExpressions:
                 - key: jupyterhub-node
@@ -113,6 +115,7 @@ jupyterhub:
           image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-065.94928e2
           cpu_guarantee: 8
           cpu_limit: 32
+          memory_limit: 16G
           node_affinity_required:
             - matchExpressions:
                 - key: jupyterhub-node
