@@ -57,9 +57,6 @@ RUN conda env create -n notebook -f /tmp/environment.yml \
  && conda clean -pity \
  && jupyter lab clean
 
-RUN jupyter lab build \
- && jupyter lab clean
-
 RUN python3 -m pip install nbgitpuller
 
 RUN sage -pip install pypersist
@@ -74,6 +71,7 @@ ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
 RUN cp -v \
     $SAGE_ROOT/local/share/jupyter/lab/extensions/* \
     $CONDA_DIR/envs/notebook/share/jupyter/lab/extensions \
+ && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
  && jupyter lab build \
  && jupyter lab clean
 
