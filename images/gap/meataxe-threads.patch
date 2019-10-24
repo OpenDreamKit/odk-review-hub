@@ -1,0 +1,18 @@
+Set the number of threads for meataxe64
+---
+ src/mtx64/tuning.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/mtx64/tuning.h b/src/mtx64/tuning.h
+index 2aa5bf4..f3bc00a 100644
+--- a/src/mtx64/tuning.h
++++ b/src/mtx64/tuning.h
+@@ -6,7 +6,7 @@
+ // THREADS should be the number you ideally want to run at once
+ // programs should usually run rather more, but that is their choice.
+ 
+-#define THREADS 12
++#define THREADS 4
+ 
+ // MEGABYTES should be the amount of data memory you 
+ // would like a program to restrict itself to.
