@@ -22,4 +22,7 @@ RUN sudo mkdir $HOME \
  && sudo chown $USER $HOME \
  && sudo usermod -d $HOME $USER
 
+RUN sudo jupyter kernelspec install $GAP_HOME/pkg/JupyterKernel/etc/jupyter
+RUN sudo jupyter nbextension install $GAP_HOME/pkg/JupyterKernel/etc/gap-mode && \
+    sudo jupyter nbextension enable --sys-prefix gap-mode/main
 WORKDIR $HOME
