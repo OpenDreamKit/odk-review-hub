@@ -15,14 +15,23 @@ USER $NB_USER
 WORKDIR /opt
 
 ENV GAPROOT=/opt/gap
+ENV GAP_VERSION=8bc29c5ecb10c41550eae84941925cf9e4a64109
 
-RUN git clone --depth 1 https://github.com/gap-system/gap gap \
- && cd gap \
+RUN mkdir $GAPROOT \
+ && cd $GAPROOT \
+ && git init \
+ && git remote add origin https://github.com/gap-system/gap \
+ && git fetch --depth 1 origin \
+    $GAP_VERSION \
+ && git checkout FETCH_HEAD \
  && ./autogen.sh \
  && ./configure --enable-hpcgap \
  && make -j4 \
  && make bootstrap-pkg-full \
  && cd pkg \
+ && cd ZeroMQ* \
+ && wget -O - https://github.com/gap-packages/ZeroMQInterface/pull/26.patch | patch -p1 \
+ && cd .. \
  && ../bin/BuildPackages.sh
 
 # install the gap kernel
