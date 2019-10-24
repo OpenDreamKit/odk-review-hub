@@ -1,5 +1,6 @@
 dependencies:
   - python=3.6
+  - ipywidgets
   - jupyterlab=1.0
   - jupyterhub=1.0
   - notebook=6

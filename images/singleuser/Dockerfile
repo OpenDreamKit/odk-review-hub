@@ -70,6 +70,13 @@ RUN sage -pip install git+https://github.com/sagemath/sage-explorer.git
 ENV SAGE_ROOT=/home/sage/sage
 ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
 
+# install jupyterlab extensions
+RUN cp -v \
+    $SAGE_ROOT/local/share/jupyter/lab/extensions/* \
+    $CONDA_DIR/envs/notebook/share/jupyter/lab/extensions \
+ && jupyter lab build \
+ && jupyter lab clean
+
 # remove duplicate sage Python kernel
 RUN rm -rvf $JUPYTER_DATA_DIR/kernels/python3
 
