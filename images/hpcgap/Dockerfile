@@ -15,7 +15,7 @@ USER $NB_USER
 WORKDIR /opt
 
 ENV GAPROOT=/opt/gap
-ENV GAP_VERSION=8bc29c5ecb10c41550eae84941925cf9e4a64109
+ENV GAP_VERSION=5d9137d1b60b87dfb3c3a0a2ab68ac40370758be
 
 RUN mkdir $GAPROOT \
  && cd $GAPROOT \
@@ -36,7 +36,6 @@ RUN mkdir $GAPROOT \
 
 # install the gap kernel
 ENV PATH=$GAPROOT/bin:$PATH
-ENV JUPYTER_GAP_EXECUTABLE ${GAPROOT}/bin/gap.sh
 
 RUN jupyter kernelspec install \
     --sys-prefix \
@@ -44,9 +43,11 @@ RUN jupyter kernelspec install \
     $GAPROOT/pkg/JupyterKernel*/etc/jupyter/ \
  && ln -s $GAPROOT/pkg/JupyterKernel*/bin/jupyter-kernel-gap $CONDA_DIR/bin/jupyter-kernel-gap
 
-
 # install nbgitpuller
 RUN pip install --no-cache nbgitpuller
+
+# configure gap kernel
+ENV JUPYTER_GAP_EXECUTABLE "${GAPROOT}/bin/gap.sh -r -A -S"
 
 # setup the home dir
 USER root
