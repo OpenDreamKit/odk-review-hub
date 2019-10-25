@@ -71,6 +71,8 @@ ENV JUPYTER_DATA_DIR=$SAGE_ROOT/local/share/jupyter
 RUN cp -v \
     $SAGE_ROOT/local/share/jupyter/lab/extensions/* \
     $CONDA_DIR/envs/notebook/share/jupyter/lab/extensions \
+# sage-combinat-widgets breaks jupyterlab
+ && rm /opt/conda/envs/notebook/share/jupyter/lab/extensions/sage-combinat-widgets* \
  && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
  && jupyter lab build \
  && jupyter lab clean
