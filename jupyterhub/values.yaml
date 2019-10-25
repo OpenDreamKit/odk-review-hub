@@ -106,13 +106,13 @@ jupyterhub:
         description: "HPC GAP Parallel demo environment, with only 4 cpu cores for\
           \ testing"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-065.94928e2
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-073.2fcd919
           cpu_guarantee: 4
           cpu_limit: 4
       - display_name: "HPC GAP Parallel"
         description: "HPC GAP Parallel demo environment, with 32 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-065.94928e2
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-073.2fcd919
           cpu_guarantee: 8
           cpu_limit: 32
           memory_limit: 16G
