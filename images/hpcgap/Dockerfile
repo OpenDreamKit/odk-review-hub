@@ -47,7 +47,7 @@ RUN jupyter kernelspec install \
 RUN pip install --no-cache nbgitpuller
 
 # configure gap kernel
-ENV JUPYTER_GAP_EXECUTABLE "${GAPROOT}/bin/gap.sh -r -A -S"
+ENV JUPYTER_GAP_EXECUTABLE "${GAPROOT}/bin/gap.sh -r -A -S --single-thread"
 
 # setup the home dir
 USER root
