@@ -74,6 +74,7 @@ RUN cp -v \
 # sage-combinat-widgets breaks jupyterlab
  && rm /opt/conda/envs/notebook/share/jupyter/lab/extensions/sage-combinat-widgets* \
  && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
+ && jupyter labextension install --no-build k3d \
  && jupyter lab build \
  && jupyter lab clean
 
