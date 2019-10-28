@@ -16,3 +16,14 @@ RUN cd $JUPYTERLAB_SRCDIR \
  && cd \
  && jupyter lab build \
  && jupyter lab clean
+
+RUN pip install --no-cache nbgitpuller
+
+USER root
+ENV HOME=/home/user
+RUN mkdir $HOME \
+ && chown $NB_USER $HOME \
+ && usermod -d $HOME $NB_USER
+USER $NB_USER
+
+WORKDIR $HOME
