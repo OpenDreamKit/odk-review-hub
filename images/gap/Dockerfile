@@ -6,6 +6,9 @@ RUN sudo python3 -mpip install --no-cache \
     nbgitpuller \
     plotly
 
+RUN sudo jupyter labextension install jupyterlab-plotly \
+ && sudo jupyter lab clean
+
 ENV HOME=/home/user \
     USER=gap
 
@@ -16,4 +19,5 @@ RUN sudo mkdir $HOME \
 RUN sudo jupyter kernelspec install $GAP_HOME/pkg/JupyterKernel/etc/jupyter
 RUN sudo jupyter nbextension install $GAP_HOME/pkg/JupyterKernel/etc/gap-mode && \
     sudo jupyter nbextension enable --sys-prefix gap-mode/main
+
 WORKDIR $HOME
