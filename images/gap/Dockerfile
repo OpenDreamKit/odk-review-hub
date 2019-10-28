@@ -3,7 +3,8 @@ FROM gapsystem/gap-docker@sha256:77f8f263363b805612ca076a54f1b111238af0e544ab274
 RUN sudo python3 -mpip install --no-cache \
     jupyterhub==1.0.* \
     jupyterlab==1.1.* \
-    nbgitpuller
+    nbgitpuller \
+    plotly
 
 ENV HOME=/home/user \
     USER=gap
