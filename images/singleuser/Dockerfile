@@ -78,6 +78,13 @@ RUN cp -v \
  && jupyter lab build \
  && jupyter lab clean
 
+USER root
+RUN apt-get update && apt-get -yq dist-upgrade \
+ && apt-get install -yq --no-install-recommends \
+    libgl1-mesa-dev \
+ && rm -rf /var/lib/apt/lists/*
+USER $NB_USER
+
 # remove duplicate sage Python kernel
 RUN rm -rvf $JUPYTER_DATA_DIR/kernels/python3
 
