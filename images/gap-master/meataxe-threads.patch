@@ -12,7 +12,13 @@ index 2aa5bf4..f3bc00a 100644
  // programs should usually run rather more, but that is their choice.
  
 -#define THREADS 12
-+#define THREADS 4
++#define THREADS 16
  
  // MEGABYTES should be the amount of data memory you 
  // would like a program to restrict itself to.
+
+-#define MEGABYTES 26000
++#define MEGABYTES 10000
+
+// MAXCHOP is the maximum number of chops that can be made when
+// doing multi-core work.
