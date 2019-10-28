@@ -6,6 +6,10 @@ RUN sudo python3 -mpip install --no-cache \
     nbgitpuller \
     plotly
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
+ && sudo apt-get install -y nodejs \
+ && sudo rm -rf /var/lib/apt/lists/*
+
 RUN sudo jupyter labextension install jupyterlab-plotly \
  && sudo jupyter lab clean
 
