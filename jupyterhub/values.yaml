@@ -86,8 +86,10 @@ jupyterhub:
         description: "GAP demo environment, latest development version"
         kubespawner_override:
           image: gcr.io/simula-odk/k8s-gap-master:0.0.1-089.f96f45c
-          cpu_guarantee: 2
-          cpu_limit: 4
+          cpu_guarantee: 9
+          cpu_limit: 16
+          mem_guarantee: 16G
+          mem_limit: 16G
       - display_name: "Singular Parallel (lite)"
         description: "Singular Parallel demo environment, with only 4 cpus"
         kubespawner_override:
