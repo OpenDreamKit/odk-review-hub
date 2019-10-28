@@ -77,10 +77,16 @@ jupyterhub:
                   values:
                     - hpc
       - display_name: "GAP"
-        description: "GAP demo environment"
+        description: "GAP demo environment, stable version"
         kubespawner_override:
           image: gcr.io/simula-odk/k8s-gap:0.0.1-069.119001d
-          cpu_guarantee: 3
+          cpu_guarantee: 0.75
+          cpu_limit: 1
+      - display_name: "GAP (master)"
+        description: "GAP demo environment, latest development version"
+        kubespawner_override:
+          image: gcr.io/simula-odk/k8s-gap-master:0.0.1-069.119001d
+          cpu_guarantee: 2
           cpu_limit: 4
       - display_name: "Singular Parallel (lite)"
         description: "Singular Parallel demo environment, with only 4 cpus"

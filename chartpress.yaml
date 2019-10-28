@@ -8,11 +8,13 @@ charts:
           - jupyterhub.singleuser.image
       gap:
         valuesPath: jupyterhub.singleuser.profileList.3.kubespawner_override.image
+      gap-master:
+        valuesPath: jupyterhub.singleuser.profileList.4.kubespawner_override.image
       singular:
         valuesPath:
-          - jupyterhub.singleuser.profileList.4.kubespawner_override.image
           - jupyterhub.singleuser.profileList.5.kubespawner_override.image
+          - jupyterhub.singleuser.profileList.6.kubespawner_override.image
       hpcgap:
         valuesPath:
-          - jupyterhub.singleuser.profileList.6.kubespawner_override.image
           - jupyterhub.singleuser.profileList.7.kubespawner_override.image
+          - jupyterhub.singleuser.profileList.8.kubespawner_override.image
