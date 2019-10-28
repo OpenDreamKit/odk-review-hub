@@ -9,6 +9,8 @@ RUN chown $NB_USER /opt
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
     libzmq5-dev \
+    bison \
+    flex \
  && rm -rf /var/lib/apt/lists/*
 
 USER $NB_USER
