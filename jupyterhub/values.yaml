@@ -34,7 +34,7 @@ jupyterhub:
       homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0.1-077.59b0f70'
+      tag: '0.0.1-089.f96f45c'
       pullPolicy: Always
     startTimeout: 600
     lifecycleHooks:
@@ -79,25 +79,25 @@ jupyterhub:
       - display_name: "GAP"
         description: "GAP demo environment, stable version"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap:0.0.1-069.119001d
+          image: gcr.io/simula-odk/k8s-gap:0.0.1-089.f96f45c
           cpu_guarantee: 0.75
           cpu_limit: 1
       - display_name: "GAP (master)"
         description: "GAP demo environment, latest development version"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap-master:0.0.1-069.119001d
+          image: gcr.io/simula-odk/k8s-gap-master:0.0.1-089.f96f45c
           cpu_guarantee: 2
           cpu_limit: 4
       - display_name: "Singular Parallel (lite)"
         description: "Singular Parallel demo environment, with only 4 cpus"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singular:0.0.1-053.d48c97b
+          image: gcr.io/simula-odk/k8s-singular:0.0.1-089.f96f45c
           cpu_guarantee: 4
           cpu_limit: 4
       - display_name: "Singular Parallel"
         description: "Singular Parallel demo environment, with 32 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-singular:0.0.1-053.d48c97b
+          image: gcr.io/simula-odk/k8s-singular:0.0.1-089.f96f45c
           cpu_guarantee: 8
           cpu_limit: 32
           memory_limit: 16G
@@ -112,13 +112,13 @@ jupyterhub:
         description: "HPC GAP Parallel demo environment, with only 4 cpu cores for\
           \ testing"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-076.4ac9d08
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-090.4b39e61
           cpu_guarantee: 4
           cpu_limit: 4
       - display_name: "HPC GAP Parallel"
         description: "HPC GAP Parallel demo environment, with 32 CPUs available"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-076.4ac9d08
+          image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-090.4b39e61
           cpu_guarantee: 8
           cpu_limit: 32
           memory_limit: 16G
@@ -159,8 +159,7 @@ jupyterhub:
         c.JupyterHub.tornado_settings.update({'slow_spawn_timeout': 1})
       noAuthMetrics: |
         c.JupyterHub.authenticate_prometheus = False
-      namedServers:
-        c.JupyterHub.allow_named_servers = True
+      namedServers: c.JupyterHub.allow_named_servers = True
   scheduling:
     userScheduler:
       enabled: true
