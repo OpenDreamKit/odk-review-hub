@@ -34,3 +34,6 @@ RUN sudo jupyter kernelspec install $GAP_HOME/pkg/JupyterKernel/etc/jupyter
 RUN sudo jupyter nbextension install $GAP_HOME/pkg/JupyterKernel/etc/gap-mode && \
     sudo jupyter nbextension enable --sys-prefix gap-mode/main
 WORKDIR $HOME
+
+ADD entrypoint /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]

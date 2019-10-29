@@ -61,3 +61,6 @@ RUN mkdir $HOME \
 USER $NB_USER
 
 WORKDIR $HOME
+
+ADD entrypoint /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]

@@ -17,4 +17,7 @@ RUN mkdir $HOME \
 
 USER $NB_USER
 
+ADD entrypoint /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
+
 WORKDIR $HOME
