@@ -11,7 +11,6 @@ RUN cd $GAP_HOME/pkg \
  && make
 
 USER root
-RUN chown $NB_USER /opt
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
     vim \
