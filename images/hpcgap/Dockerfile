@@ -11,9 +11,10 @@ RUN apt-get update \
     libzmq5-dev \
     bison \
     flex \
+    vim \
  && rm -rf /var/lib/apt/lists/*
-
 USER $NB_USER
+
 WORKDIR /opt
 
 ENV GAPROOT=/opt/gap

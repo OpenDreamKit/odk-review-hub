@@ -10,6 +10,14 @@ RUN cd $GAP_HOME/pkg \
  && ./configure --with-gaproot=$GAP_HOME \
  && make
 
+USER root
+RUN chown $NB_USER /opt
+RUN apt-get update \
+ && apt-get -y install --no-install-recommends \
+    vim \
+ && rm -rf /var/lib/apt/lists/*
+USER $NB_USER
+
 RUN sudo python3 -mpip install --no-cache \
     jupyterhub==1.0.* \
     jupyterlab==1.1.* \
