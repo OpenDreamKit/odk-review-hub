@@ -85,6 +85,9 @@ RUN apt-get update && apt-get -yq dist-upgrade \
  && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
 
+# enable sage-combinat-widgets in notebook environment
+RUN jupyter nbextension enable --sys-prefix sage-combinat-widgets/extension
+
 # remove duplicate sage Python kernel
 RUN rm -rvf $JUPYTER_DATA_DIR/kernels/python3
 
