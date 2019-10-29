@@ -34,7 +34,7 @@ jupyterhub:
       homeMountPath: /home/user
     image:
       name: gcr.io/simula-odk/k8s-singleuser
-      tag: '0.0.1-104.3b43cdf'
+      tag: '0.0.1-116.71b59df'
       pullPolicy: Always
     startTimeout: 600
     lifecycleHooks:
