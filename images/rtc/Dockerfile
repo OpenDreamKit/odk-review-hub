@@ -12,14 +12,20 @@ RUN mkdir -p $JUPYTERLAB_SRCDIR \
  && git checkout FETCH_HEAD
 
 RUN cd $JUPYTERLAB_SRCDIR \
- && pip install . \
- && cd \
- && jupyter lab build \
- && jupyter lab clean
+ && jupyter lab clean \
+ && pip install -v -e . \
+ && jlpm install \
+ && jlpm run build \
+ && jlpm run build:core \
+ && jupyter lab build # Build the app dir assets (optional)
+
 
 RUN pip install --no-cache nbgitpuller
 
+COPY jupyter_notebook_config.py /etc/jupyter/
+
 USER root
+
 ENV HOME=/home/user
 RUN mkdir $HOME \
  && chown $NB_USER $HOME \
