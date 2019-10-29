@@ -125,7 +125,7 @@ jupyterhub:
           image: gcr.io/simula-odk/k8s-hpcgap:0.0.1-111.92d59fa
           cpu_guarantee: 8
           cpu_limit: 32
-          mem_limit: 16G
+          mem_limit: 36G
           node_affinity_required:
             - matchExpressions:
                 - key: jupyterhub-node
