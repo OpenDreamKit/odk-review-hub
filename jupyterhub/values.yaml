@@ -87,7 +87,7 @@ jupyterhub:
       - display_name: "GAP (master)"
         description: "GAP demo environment, latest development version"
         kubespawner_override:
-          image: gcr.io/simula-odk/k8s-gap-master:0.0.1-112.1eeaa53
+          image: gcr.io/simula-odk/k8s-gap-master:0.0.1-119.fba88fd
           cpu_guarantee: 9
           cpu_limit: 16
           mem_guarantee: 16G
