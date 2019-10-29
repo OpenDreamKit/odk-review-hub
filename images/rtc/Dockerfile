@@ -16,8 +16,7 @@ RUN cd $JUPYTERLAB_SRCDIR \
  && pip install -v -e . \
  && jlpm install \
  && jlpm run build \
- && jlpm run build:core \
- && jupyter lab build # Build the app dir assets (optional)
+ && jupyter lab clean
 
 
 RUN pip install --no-cache nbgitpuller
